@@ -23,11 +23,17 @@ namespace HelloWorld
                 avaliableColors.Add(Color.blue);
                 avaliableColors.Add(Color.red);
                 avaliableColors.Add(Color.white);
-                SubmitRedTeamPositionServerRpc(true);
-                SubmitNoTeamPositionServerRpc(true);
-                SubmitBlueTeamPositionServerRpc(true);
+               
                 Debug.Log(avaliableColors.Count);
-            }          
+            }   
+           
+               //SubmitNoTeamPositionServerRpc(true);
+               //SubmitRedTeamPositionServerRpc(true);
+               //SubmitBlueTeamPositionServerRpc(true);
+           
+            
+            
+                   
         }   
         public void OnPositionChange(Vector3 previusValue, Vector3 newValue){
             transform.position = Position.Value;
@@ -48,11 +54,11 @@ namespace HelloWorld
         [ServerRpc]
         void SubmitNoTeamPositionServerRpc(bool primeritaVez = false, ServerRpcParams rpcParams = default){
             Position.Value = GetNoTeamPosition();
-            Color oldColor = colorPlayer.Value;
+            Color oldNoTeamColor = colorPlayer.Value;
             Color NewNoTeamColor = avaliableColors[2];
             avaliableColors.Remove(NewNoTeamColor);
             if(!primeritaVez){
-                return;
+                avaliableColors.Add(oldNoTeamColor);
             }
             colorPlayer.Value = NewNoTeamColor;
         }
@@ -69,8 +75,8 @@ namespace HelloWorld
         [ServerRpc]
         public void SubmitRedTeamPositionServerRpc(bool primeritaVez = false, ServerRpcParams rpcParams = default){
             Position.Value = GetRedTeamPosition();
-            Color oldColor = colorPlayer.Value;
-            Color newRedTeamColor = avaliableColors[0];
+            Color oldRedTeamColor = colorPlayer.Value;
+            Color newRedTeamColor = avaliableColors[1];
             avaliableColors.Remove(newRedTeamColor);
             if(!primeritaVez){
                 return;
@@ -88,8 +94,8 @@ namespace HelloWorld
         [ServerRpc]
         void SubmitBlueTeamPositionServerRpc(bool primeritaVez = false, ServerRpcParams rpcParams = default){
             Position.Value = GetBlueTeamPosition();
-            Color oldColor = colorPlayer.Value;
-            Color newBlueTeamColor = avaliableColors[1];
+            Color oldBlueTeamColor = colorPlayer.Value;
+            Color newBlueTeamColor = avaliableColors[0];
             avaliableColors.Remove(newBlueTeamColor);
             if(!primeritaVez){
                 return;
