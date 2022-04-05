@@ -30,8 +30,6 @@ namespace HelloWorld
                 SubmitPositionRequestServerRpc();
             }
         }
-
-        //Team1
         public void ChangeColorTeam1(){
             ColorPlayer.Value = colorList[0];
         }
@@ -92,10 +90,5 @@ namespace HelloWorld
         public Vector3 GetPositionNoTeam(){
              return new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-3f, 3f));
         }
-
-        
-
-        
-
     }
 }
