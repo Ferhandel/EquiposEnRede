@@ -18,9 +18,9 @@ namespace HelloWorld
             {
                 StatusLabels();
 
-                SubmitRedTeamPosition();
-                SubmitBlueTeamPosition();
-                SubmitNoTeamPosition();
+                SubmitTeam1();
+                SubmitTeam2();
+                SubmitNoTeam();  
             }
 
             GUILayout.EndArea();
@@ -42,33 +42,37 @@ namespace HelloWorld
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
             GUILayout.Label("Mode: " + mode);
         }
-        static void SubmitNoTeamPosition()
+
+         static void SubmitTeam1()
         {
-            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "No Team" : "No Team"))
+            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Choose Team1" : "Choose Team 1" ))
             {
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
-                player.MoveNoTeam();
+                player.SubmitTeam1RequestServerRpc();
+                  
             }
         }
 
-        static void SubmitRedTeamPosition()
+        static void SubmitTeam2()
         {
-            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Move to Red Team" : "Move to Red team"))
+            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Choose Team2" : "Choose Team 2" ))
             {
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
-                player.MoveRedTeam();
+                player.SubmitTeam2RequestServerRpc();
+                
             }
         }
 
-         static void SubmitBlueTeamPosition()
+        static void SubmitNoTeam()
         {
-            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Move to Blue Team" : "Move to Blue team"))
+            if (GUILayout.Button(NetworkManager.Singleton.IsServer ? "Choose No Team" : "Choose No Team" ))
             {
                 var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
                 var player = playerObject.GetComponent<HelloWorldPlayer>();
-                player.MoveBlueTeam();
+                player.SubmitNoTeamRequestServerRpc();
+            
             }
         }
     }
