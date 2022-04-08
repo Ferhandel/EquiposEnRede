@@ -40,33 +40,49 @@ namespace HelloWorld
         }
         [ServerRpc]
         void SubmitTeamPositionServerRpc(int team, ServerRpcParams rpcParams = default){
-            if (team == -1){
+            if (team == 0f){
                 teams[0]++;
                 colorPlayer.Value = Color.white;
                 Position.Value = new Vector3(Random.Range(-1.5f,1.5f),1f,Random.Range(-3f,3f));
                 numeroEquipo.Value = 0;
-                Debug.Log("JUGADOR SIN EQUIPO");
+                Debug.Log("BIENVENIDO//JUGADOR SIN EQUIPO");
             }else if (team == 0){
                 teams[0]++;
+                teams[numeroEquipo.Value]--;
                 colorPlayer.Value = Color.white;
                 Position.Value = new Vector3(Random.Range(-1.5f, 1.5f),1f,Random.Range(-3f,3f));
                 numeroEquipo.Value = 0;
                 Debug.Log("JUGADOR SIN EQUIPO");
             }else if (team == 1){
+                if(teams[1] < maxPlayersOnTeam){
                 teams[1]++;
+                teams[numeroEquipo.Value]--;
                 colorPlayer.Value = Color.blue;
                 Position.Value = new Vector3(Random.Range(-1.5f,-3f),1f,Random.Range(-3f,3f));
                 numeroEquipo.Value = 1;
                 Debug.Log("JUGADOR A EQUIPO AZUL");
-            } else if(team == 2){
+               } else{
+                    if(numeroEquipo.Value == team){
+                    colorPlayer.Value = Color.blue;
+                    Position.Value = new Vector3(Random.Range(-1.5f,-3f),1f,Random.Range(-3f,3f));
+                } else{
+                    Debug.Log("QUIETO PARAO. El equipo azul esta completo, colega.");
+                }
+               }
+            } 
+            if(team == 2){
                 if(teams[2] < maxPlayersOnTeam){
                 teams[2]++;
+                teams[numeroEquipo.Value]--;
                 colorPlayer.Value = Color.red;
                 Position.Value = new Vector3 (Random.Range(1.5f,3f),1f,Random.Range(-3f,3f));
                 numeroEquipo.Value = 2;
                 Debug.Log("JUGADOR A EQUIPO ROJO");
+              }else{
+                  Debug.Log("TRANQUILO AMIGO. Afóro máximo del equipo Rojo debido al coronavirus :(");
               }
             }
+            Debug.Log(teams[0] + " " + teams[1]+ " " + teams[2]);
             
             
         }
